@@ -42,7 +42,7 @@ public class BeansConfiguration {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> new UserPrincipal(userRepository.findByName(username)
-                .orElseThrow(() -> new RuntimeException("User does not exist")));
+                .orElseThrow(() -> new DemoSecurityException("User does not exist")));
     }
 
     @Bean

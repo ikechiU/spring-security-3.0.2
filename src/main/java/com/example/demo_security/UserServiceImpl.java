@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User createUser(UserRequest userRequest) {
         Optional<User> user = userRepository.findByName(userRequest.getName());
-        if (user.isPresent()) throw new RuntimeException("User with registration details available");
+        if (user.isPresent()) throw new DemoSecurityException("User with registration details available");
         User userToSave = User.builder()
                 .name(userRequest.getName())
                 .encryptedPassword(passwordEncoder.encode(userRequest.getPassword()))
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService{
 
     private User getUser(String name) {
         return userRepository.findByName(name)
-                .orElseThrow(()-> new RuntimeException("User not found"));
+                .orElseThrow(()-> new DemoSecurityException("User not found"));
     }
 
     @Override
