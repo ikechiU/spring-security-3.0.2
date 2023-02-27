@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 
 /**
@@ -24,6 +26,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
+
+    private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
 
     private final PasswordEncoder passwordEncoder;
@@ -33,8 +37,13 @@ public class UserServiceImpl implements UserService{
     public User createUser(UserRequest userRequest) {
         Optional<User> user = userRepository.findByName(userRequest.getName());
         if (user.isPresent()) throw new DemoSecurityException("User with registration details available");
+
+        Collection<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName(Roles.ROLE_USER.name()));
+
         User userToSave = User.builder()
                 .name(userRequest.getName())
+                .roles(roles)
                 .encryptedPassword(passwordEncoder.encode(userRequest.getPassword()))
                 .build();
         return userRepository.save(userToSave);

@@ -1,10 +1,11 @@
 package com.example.demo_security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * @author Ikechi Ucheagwu
@@ -21,7 +22,23 @@ public class UserPrincipal implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        Collection<GrantedAuthority> authorities = new HashSet<>();
+
+        Collection<Role> roles = user.getRoles();
+        Collection<Authority> authorityCollection = new HashSet<>();
+
+        if (roles == null) return  authorities;
+
+        roles.forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            authorityCollection.addAll(role.getAuthorities());
+        });
+
+        authorityCollection.forEach(authority -> {
+            authorities.add(new SimpleGrantedAuthority(authority.getName()));
+        });
+
+        return authorities;
     }
 
     @Override
