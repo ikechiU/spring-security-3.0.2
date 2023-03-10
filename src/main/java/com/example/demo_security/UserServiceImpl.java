@@ -1,18 +1,21 @@
 package com.example.demo_security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,19 +37,21 @@ public class UserServiceImpl implements UserService{
     private final JwtUtils jwtUtils;
 
     @Override
-    public User createUser(UserRequest userRequest) {
-        Optional<User> user = userRepository.findByName(userRequest.getName());
+    public UserResponse createUser(UserRequest userRequest) {
+        Optional<User> user = userRepository.findByEmail(userRequest.getEmail());
         if (user.isPresent()) throw new DemoSecurityException("User with registration details available");
 
         Collection<Role> roles = new HashSet<>();
         roles.add(roleRepository.findByName(Roles.ROLE_USER.name()));
 
         User userToSave = User.builder()
-                .name(userRequest.getName())
+                .email(userRequest.getEmail())
                 .roles(roles)
                 .encryptedPassword(passwordEncoder.encode(userRequest.getPassword()))
                 .build();
-        return userRepository.save(userToSave);
+
+        User savedUser = userRepository.save(userToSave);
+        return UserResponse.mapFromUser(savedUser);
     }
 
     @Override
@@ -54,21 +59,31 @@ public class UserServiceImpl implements UserService{
         Authentication authentication = authenticationManager
                 .authenticate(
                         new UsernamePasswordAuthenticationToken(
-                                userRequest.getName(), userRequest.getPassword()));
+                                userRequest.getEmail(), userRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return jwtUtils.generateToken(userRequest.getName());
+        return jwtUtils.generateToken(userRequest.getEmail());
     }
 
     @Override
-    public User getUser() {
+    public UserResponse getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
-        return getUser(name);
+        String email = authentication.getName();
+        return UserResponse.mapFromUser(getUser(email));
     }
 
-    private User getUser(String name) {
-        return userRepository.findByName(name)
+    @Override
+    public List<UserResponse> getUsers(int page, int limit) {
+        if (page > 0) page = page - 1;
+
+        Pageable pageable = PageRequest.of(page, limit);
+        Page<User> pagedUser = userRepository.findAll(pageable);
+
+        return UserResponse.mapFromUser(pagedUser.getContent());
+    }
+
+    private User getUser(String username) {
+        return userRepository.findByEmail(username)
                 .orElseThrow(()-> new DemoSecurityException("User not found"));
     }
 

@@ -41,7 +41,7 @@ public class BeansConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> new UserPrincipal(userRepository.findByName(username)
+        return username -> new UserPrincipal(userRepository.findByEmail(username)
                 .orElseThrow(() -> new DemoSecurityException("User does not exist")));
     }
 

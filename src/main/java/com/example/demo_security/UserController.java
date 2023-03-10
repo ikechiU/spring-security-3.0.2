@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author Ikechi Ucheagwu
  * @created 21/02/2023 - 15:35
@@ -19,7 +21,7 @@ public class UserController {
 
     @SecurityRequirements
     @PostMapping("/register")
-    public User register(@RequestBody UserRequest userRequest) {
+    public UserResponse register(@RequestBody UserRequest userRequest) {
         return userService.createUser(userRequest);
     }
 
@@ -29,8 +31,16 @@ public class UserController {
         return userService.authenticate(userRequest);
     }
 
-    @GetMapping("/users")
-    public User getUser() {
+    @GetMapping("/users/id")
+    public UserResponse getUser() {
         return userService.getUser();
+    }
+
+    @GetMapping("/users")
+    public List<UserResponse> getUsers(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "limit", defaultValue = "10") int limit
+    ) {
+        return userService.getUsers(page, limit);
     }
 }

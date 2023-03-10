@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -43,11 +42,11 @@ public class InitialUserSetUp {
         if (roleSuperAdmin == null) return;
 
         User superAdminUser = new User();
-        superAdminUser.setName("super@admin.com");
+        superAdminUser.setEmail("super@admin.com");
         superAdminUser.setEncryptedPassword(bCryptPasswordEncoder.encode("123456789"));
         superAdminUser.setRoles(List.of(roleSuperAdmin));
 
-        User storedSuperUser = userRepository.findByName("super@admin.com").orElse(null);
+        User storedSuperUser = userRepository.findByEmail("super@admin.com").orElse(null);
         if(storedSuperUser == null) {
             userRepository.save(superAdminUser);
         }

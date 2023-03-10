@@ -13,8 +13,8 @@ services:
       MYSQL_DATABASE: demo_db
       MYSQL_TCP_PORT: 3307
     restart: always
-    volumes:
-      - mysql_db_data:/var/lib/mysql
+#    volumes:
+#      - mysql_db_data:/var/lib/mysql
 
   ### MySQL Adminer ###
   adminer:
@@ -31,12 +31,12 @@ services:
 
   ### API Spring Boot ###
   server:
-    container_name: appserver
+    container_name: demoserver
     image: iykeafrica/spring_security_demo
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demo_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3307/demo_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false&serverTimezone=UTC
     ports:
       - "8080:8080"
     restart: always

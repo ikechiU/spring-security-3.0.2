@@ -2,6 +2,8 @@ package com.example.demo_security;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.List;
+
 /**
  * @author Ikechi Ucheagwu
  * @created 21/02/2023 - 14:28
@@ -9,8 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 
 public interface UserService extends UserDetailsService {
-    User createUser(UserRequest userRequest);
+    UserResponse createUser(UserRequest userRequest);
 
     String authenticate(UserRequest userRequest);
-    User getUser();
+    UserResponse getUser();
+    List<UserResponse> getUsers(int page, int limit);
 }

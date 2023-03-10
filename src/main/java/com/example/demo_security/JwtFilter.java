@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -46,12 +45,12 @@ public class JwtFilter extends OncePerRequestFilter {
         userEmail = jwtUtils.extractUsername(jwtToken);
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            User user = userRepository.findByName(userEmail)
+            User user = userRepository.findByEmail(userEmail)
                     .orElseThrow(()-> new RuntimeException("User does not exist"));
 
             UserPrincipal userPrincipal = new UserPrincipal(user);
 
-            final boolean isTokenValid = jwtUtils.isTokenValid(jwtToken, user.getName());
+            final boolean isTokenValid = jwtUtils.isTokenValid(jwtToken, user.getEmail());
 
             if (isTokenValid) {
                 UsernamePasswordAuthenticationToken authToken =
