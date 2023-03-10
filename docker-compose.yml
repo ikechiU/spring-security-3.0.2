@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  ### MYSQL Database ###
+  ### MYSQL Database ####
   mysql:
     container_name: mysql
     image: mysql
@@ -16,7 +16,7 @@ services:
 #    volumes:
 #      - mysql_db_data:/var/lib/mysql
 
-  ### MySQL Adminer ###
+  ### MySQL Adminer ####
   adminer:
     container_name: adminer_container
     image: adminer
@@ -29,7 +29,7 @@ services:
       - "8888:8888"
     restart: always
 
-  ### API Spring Boot ###
+  ### API Spring Boot ####
   server:
     container_name: demoserver
     image: iykeafrica/spring_security_demo
