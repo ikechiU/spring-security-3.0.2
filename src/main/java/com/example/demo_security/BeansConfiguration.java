@@ -95,7 +95,7 @@ public class BeansConfiguration {
                 .components(new Components().addSecuritySchemes("bearer-jwt",
                         new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
                                 .in(SecurityScheme.In.HEADER).name("Authorization")))
-                .info(new Info().title("Fashion Blog").version("snapshot").description("A sample fashion blog Restful web service"))
+                .info(new Info().title("Spring security demo").version("snapshot").description("A sample project on spring security using spring boot 3.0.2."))
                 .addSecurityItem(
                         new SecurityRequirement().addList("bearer-jwt", Arrays.asList("read", "write")));
     }
