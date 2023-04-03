@@ -7,7 +7,7 @@ services:
     ports:
       - "3307:3307"
     environment:
-      MYSQL_PASSWORD: user
+      MYSQL_PASSWORD: example
       MYSQL_ROOT_PASSWORD: user
       MYSQL_USER: user
       MYSQL_DATABASE: demo_db
@@ -20,11 +20,11 @@ services:
   adminer:
     container_name: adminer_container
     image: adminer
-    depends_on:
-      - mysql
-    environment:
-      ADMINER_DEFAULT_SERVER: mysql
-      ADMINER_DESIGN: galkaev
+#    depends_on:
+#      - mysql
+#    environment:
+#      ADMINER_DEFAULT_SERVER: mysql
+#      ADMINER_DESIGN: galkaev
     ports:
       - "8080:8080"
     restart: always
