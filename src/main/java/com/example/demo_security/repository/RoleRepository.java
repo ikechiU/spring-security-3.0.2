@@ -1,5 +1,6 @@
-package com.example.demo_security;
+package com.example.demo_security.repository;
 
+import com.example.demo_security.entity.Role;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

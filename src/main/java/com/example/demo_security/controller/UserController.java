@@ -1,5 +1,8 @@
-package com.example.demo_security;
+package com.example.demo_security.controller;
 
+import com.example.demo_security.pojo.UserRequest;
+import com.example.demo_security.pojo.UserResponse;
+import com.example.demo_security.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

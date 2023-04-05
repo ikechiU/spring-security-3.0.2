@@ -1,5 +1,6 @@
-package com.example.demo_security;
+package com.example.demo_security.exception;
 
+import com.example.demo_security.pojo.ErrorResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,7 @@
-package com.example.demo_security;
+package com.example.demo_security.security;
 
+import com.example.demo_security.entity.User;
+import com.example.demo_security.repository.UserRepository;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +26,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
-    private final   JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
     @Override
     protected void doFilterInternal(

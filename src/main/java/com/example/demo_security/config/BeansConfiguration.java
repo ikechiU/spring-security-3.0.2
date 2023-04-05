@@ -1,5 +1,8 @@
-package com.example.demo_security;
+package com.example.demo_security.config;
 
+import com.example.demo_security.exception.DemoSecurityException;
+import com.example.demo_security.repository.UserRepository;
+import com.example.demo_security.security.UserPrincipal;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

@@ -1,4 +1,4 @@
-package com.example.demo_security;
+package com.example.demo_security.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

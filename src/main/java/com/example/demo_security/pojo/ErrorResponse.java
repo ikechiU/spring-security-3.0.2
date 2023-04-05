@@ -1,4 +1,4 @@
-package com.example.demo_security;
+package com.example.demo_security.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

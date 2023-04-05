@@ -1,5 +1,16 @@
-package com.example.demo_security;
+package com.example.demo_security.service.impl;
 
+import com.example.demo_security.entity.Role;
+import com.example.demo_security.entity.User;
+import com.example.demo_security.enums.Roles;
+import com.example.demo_security.exception.DemoSecurityException;
+import com.example.demo_security.pojo.UserRequest;
+import com.example.demo_security.pojo.UserResponse;
+import com.example.demo_security.repository.RoleRepository;
+import com.example.demo_security.repository.UserRepository;
+import com.example.demo_security.security.JwtUtils;
+import com.example.demo_security.security.UserPrincipal;
+import com.example.demo_security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +37,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 

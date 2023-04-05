@@ -1,5 +1,8 @@
-package com.example.demo_security;
+package com.example.demo_security.security;
 
+import com.example.demo_security.entity.Authority;
+import com.example.demo_security.entity.Role;
+import com.example.demo_security.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

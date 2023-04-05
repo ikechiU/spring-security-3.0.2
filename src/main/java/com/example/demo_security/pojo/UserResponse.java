@@ -1,5 +1,6 @@
-package com.example.demo_security;
+package com.example.demo_security.pojo;
 
+import com.example.demo_security.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

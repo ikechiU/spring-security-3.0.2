@@ -1,5 +1,13 @@
 package com.example.demo_security;
 
+import com.example.demo_security.entity.Authority;
+import com.example.demo_security.entity.Role;
+import com.example.demo_security.entity.User;
+import com.example.demo_security.enums.Authorities;
+import com.example.demo_security.enums.Roles;
+import com.example.demo_security.repository.AuthorityRepository;
+import com.example.demo_security.repository.RoleRepository;
+import com.example.demo_security.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

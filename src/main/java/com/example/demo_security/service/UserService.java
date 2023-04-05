@@ -1,5 +1,7 @@
-package com.example.demo_security;
+package com.example.demo_security.service;
 
+import com.example.demo_security.pojo.UserRequest;
+import com.example.demo_security.pojo.UserResponse;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
